@@ -1,0 +1,48 @@
+---
+swagger: "2.0"
+info:
+  description: "As a part of designing a new electric system, a new user register needs to be established.
+    This covers building the services to support this new register."
+  version: "1.0.7"
+  title: "Get user register"
+
+paths:
+  /users/:
+    get:
+      tags:
+      - "user"
+      summary: "Finds a user by surname"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Smith"
+        in: "query"
+        description: "Surname is needed for query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        400:
+          description: "Bad request"
+        404:
+          description: "Not Found"
+definitions:
+  User:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      surname:
+        type: "string"
+        format: "Smiths"
+      firstName:
+        type: "string"
+        example: "John"
+      email:
+        type: "string"
+        example: "john.smith@example.com"
