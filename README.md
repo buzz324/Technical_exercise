@@ -50,7 +50,7 @@ GET /users: Retrieve users by surname. Provide the surname as a query parameter 
 ## Unit Tests
 
 ```sh
-npm run jest
+npm run test
 ```
 
 ## API spec
