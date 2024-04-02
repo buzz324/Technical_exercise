@@ -1,28 +1,15 @@
 "use strict";
+// errorMessages.ts
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InternalServerError = exports.NotFoundError = exports.BadRequestError = void 0;
-class BadRequestError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = this.constructor.name; // Ensures that the error name is set correctly
-        this.status = 400;
+exports.throwCustomError = exports.CustomError = void 0;
+class CustomError {
+    constructor(statusCode, errorObject) {
+        this.statusCode = statusCode;
+        this.errorObject = errorObject || {};
     }
 }
-exports.BadRequestError = BadRequestError;
-class NotFoundError extends Error {
-    constructor(message = 'Not Found') {
-        super(message);
-        this.name = this.constructor.name;
-        this.status = 404;
-        this.message = message;
-    }
-}
-exports.NotFoundError = NotFoundError;
-class InternalServerError extends Error {
-    constructor(message = 'Internal Server Error') {
-        super(message);
-        this.name = this.constructor.name;
-        //   this.status = 500;
-    }
-}
-exports.InternalServerError = InternalServerError;
+exports.CustomError = CustomError;
+const throwCustomError = (statusCode, errorObject) => {
+    return new CustomError(statusCode, errorObject);
+};
+exports.throwCustomError = throwCustomError;

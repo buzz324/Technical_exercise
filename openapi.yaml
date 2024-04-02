@@ -15,9 +15,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Smith"
+      - name: "surname"
         in: "query"
-        description: "Surname is needed for query"
+        description: "Provide the surname to fetch a user"
         required: true
         type: "string"
       responses:
@@ -29,8 +29,20 @@ paths:
               $ref: "#/definitions/User"
         400:
           description: "Bad request"
+          schema:
+            type: "object"
+            properties:
+                message:
+                  type: string
+                  example: Surname is too long or empty
         404:
           description: "Not Found"
+          schema:
+            type: "object"
+            properties:
+                message:
+                  type: string
+                  example: No matching users found
 definitions:
   User:
     type: "object"
@@ -39,7 +51,7 @@ definitions:
     properties:
       surname:
         type: "string"
-        format: "Smiths"
+        example: "Smiths"
       firstName:
         type: "string"
         example: "John"
