@@ -5,12 +5,15 @@ import { validateOrReject } from 'class-validator';
 import { errorMessages } from './errorMessages';
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> => {
-  let getUserQuery = new GetUsersQuery()
-
-  const surname = req.query.surname as string;
-  getUserQuery.surname = surname ;
+  const getUserQuery = new GetUsersQuery()
+  const { surname } = req.query;
+  
+  if (typeof surname !== 'string') {
+    return res.status(400).json(errorMessages.invalidSurname);
+  }
 
   try {
+    getUserQuery.surname = surname;
     await validateOrReject(getUserQuery);
   } catch (errors) {
     return res.status(400).json(errorMessages.invalidSurname);
